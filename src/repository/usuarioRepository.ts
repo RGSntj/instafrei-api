@@ -26,7 +26,7 @@ export class UsuarioRepository {
                         WHERE ds_email = ?`;
 
     const resposta = await db.query<RowDataPacket[]>(comando, [email]);
-    return resposta[0];
+    return resposta[0][0];
   }
 
   async buscarInformacoesUsuario(id: string) {

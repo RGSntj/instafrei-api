@@ -6,12 +6,11 @@ export class UsuarioService {
   constructor(private readonly usuarioRepository: UsuarioRepository) {}
 
   async criar(usuario: IUser) {
-    const resposta = await this.usuarioRepository.buscarUsuarioPeloEmail(
+    const emailJaExiste = await this.usuarioRepository.buscarUsuarioPeloEmail(
       usuario.email
     );
 
-    if (resposta.length > 0)
-      throw new Error("Este e-mail já está cadastrado !");
+    if (emailJaExiste) throw new Error("Este e-mail já está cadastrado !");
 
     const hashSenha = await hash(usuario.senha, 8);
 
@@ -29,15 +28,15 @@ export class UsuarioService {
       objUsuario.email
     );
 
-    if (usuario.length <= 0) throw new Error("E-mail inválido !");
+    if (!usuario) throw new Error("Usuário não encontrado !");
 
-    const senha = await compare(objUsuario.senha, usuario[0].ds_senha);
+    const senha = await compare(objUsuario.senha, usuario.ds_senha);
 
     if (!senha) throw new Error("Senha inválida.");
 
     return {
-      id: usuario[0].id_usuario,
-      usuario: usuario[0].nm_usuario,
+      id: usuario.id_usuario,
+      usuario: usuario.nm_usuario,
     };
   }
 
