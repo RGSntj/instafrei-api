@@ -22,4 +22,20 @@ export class DiarioController {
       }
     }
   }
+
+  async diarios(req: Request, resp: Response) {
+    try {
+      const idUsuario = req.user!.id;
+
+      const diarios = await this.diarioService.meusDiarios(idUsuario);
+
+      return resp.send(diarios);
+    } catch (error) {
+      if (error instanceof Error) {
+        return resp.status(400).send({
+          erro: error.message,
+        });
+      }
+    }
+  }
 }

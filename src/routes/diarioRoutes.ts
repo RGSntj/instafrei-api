@@ -20,4 +20,10 @@ endpoints.post(
   diarioController.criar.bind(diarioController)
 );
 
+endpoints.get(
+  "/diarios",
+  jwt.autenticacao,
+  diarioController.diarios.bind(diarioController)
+);
+
 export default endpoints;

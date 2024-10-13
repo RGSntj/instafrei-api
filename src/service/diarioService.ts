@@ -8,4 +8,10 @@ export class DiarioService {
 
     return idDiarioCriado;
   }
+
+  async meusDiarios(idUsuario: string) {
+    const diarios = await this.diarioRepository.meusDiarios(idUsuario);
+
+    return diarios;
+  }
 }
