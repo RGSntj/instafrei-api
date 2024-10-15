@@ -17,7 +17,7 @@ router.post("/usuario", usuarioController.criar.bind(usuarioController));
 router.post("/login", usuarioController.logar.bind(usuarioController));
 
 router.get(
-  "/pefil",
+  "/perfil",
   jwt.autenticacao,
   usuarioController.perfil.bind(usuarioController)
 );
